@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE0818A2241BA45D00F5DC69 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0818A1241BA45D00F5DC69 /* HomeViewController.swift */; };
+		FE0818A4241BB69500F5DC69 /* Buku.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0818A3241BB69500F5DC69 /* Buku.swift */; };
 		FE95EB7E2414F94600EAEB49 /* digital-7 (mono).ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE95EB7D2414F94600EAEB49 /* digital-7 (mono).ttf */; };
 		FEBE22892410AB4400AAB032 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBE22882410AB4400AAB032 /* AppDelegate.swift */; };
 		FEBE228B2410AB4400AAB032 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBE228A2410AB4400AAB032 /* SceneDelegate.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FE0818A1241BA45D00F5DC69 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		FE0818A3241BB69500F5DC69 /* Buku.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buku.swift; sourceTree = "<group>"; };
 		FE95EB7D2414F94600EAEB49 /* digital-7 (mono).ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "digital-7 (mono).ttf"; sourceTree = "<group>"; };
 		FEBE22852410AB4400AAB032 /* KutuBuku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KutuBuku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEBE22882410AB4400AAB032 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 				FEBE22912410AB4500AAB032 /* Assets.xcassets */,
 				FEBE22962410AB4500AAB032 /* Info.plist */,
 				FE95EB7C2414F8D600EAEB49 /* Font */,
+				FE0818A1241BA45D00F5DC69 /* HomeViewController.swift */,
+				FE0818A3241BB69500F5DC69 /* Buku.swift */,
 			);
 			path = KutuBuku;
 			sourceTree = "<group>";
@@ -146,6 +152,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE0818A4241BB69500F5DC69 /* Buku.swift in Sources */,
+				FE0818A2241BA45D00F5DC69 /* HomeViewController.swift in Sources */,
 				FEBE228D2410AB4400AAB032 /* ViewController.swift in Sources */,
 				FEBE22892410AB4400AAB032 /* AppDelegate.swift in Sources */,
 				FEBE228B2410AB4400AAB032 /* SceneDelegate.swift in Sources */,

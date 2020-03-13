@@ -186,10 +186,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 errorLabel.textAlignment = .center
                 errorLabel.textColor = .red
                 errorLabel.font =  errorLabel.font.withSize(12)
-                
-                if lastPage.isEmpty || !self.isPageNumber(checkString: lastPage) {
+               
+                if lastPage.isEmpty {
                     //errorLabel.text = "Please Fill with number of Last Page Read"
-                    errorLabel.text = "Please don't leave blank and Fill with Int"
+                    errorLabel.text = "Please don't leave blank"
+                    alertController.view.addSubview(errorLabel)
+                    self.present(alertController, animated: true, completion: nil)
+                    
+                }else if  !self.isPageNumber(checkString: lastPage) {
+                    errorLabel.text = "Please fill with Page Number"
                     alertController.view.addSubview(errorLabel)
                     self.present(alertController, animated: true, completion: nil)
                 }else  {
@@ -205,12 +210,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                         
                     self.listBukuTable.reloadData()
                 }
-                
-                //self.dateFormatter.timeStyle = .short
-                //let dateString = dateFormatter.string(from: currentDate)
-                
-                
-               // viewDate.text = dateString
                 
             }
     
