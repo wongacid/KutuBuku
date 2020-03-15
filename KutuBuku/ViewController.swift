@@ -19,9 +19,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var elapseTimeRead: [String] = []
     var cellElapseTimeRead = ""
     var hariIni: [String] = []
-    
-   
     let dateFormater = DateFormatter()
+    
+    @IBOutlet weak var hourLabel: UILabel!
+    @IBOutlet weak var minuteLabel: UILabel!
+    @IBOutlet weak var secondLabel: UILabel!
+    @IBOutlet weak var addButtonTombol: UIButton!
+    @IBOutlet weak var stopButtonTombol: UIButton!
+    @IBOutlet weak var judulBukuLabel: UILabel!
+    @IBOutlet weak var listBukuTable: UITableView!
+    @IBOutlet weak var fractionsLabel: UILabel!
+   
+    
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.becomeFirstResponder()
@@ -29,31 +38,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //stopButtonTombol.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-        //stopButtonTombol.color
+        
+        //initialize button property
         disableStopTombol()
+        addButtonTombol.layer.cornerRadius = 0.5 * addButtonTombol.bounds.size.width
+        addButtonTombol.clipsToBounds = true
+        stopButtonTombol.layer.cornerRadius = 0.5 * stopButtonTombol.bounds.size.width
+        stopButtonTombol.clipsToBounds = true
+        
+        
         judulBukuLabel.text = ""
         
+        //set datasource table
         listBukuTable.dataSource = self
-        // Do any additional setup after loading the view.
+
     }
-    
-      
-    
-    @IBOutlet weak var fractionsLabel: UILabel!
-    
-   
-    @IBOutlet weak var hourLabel: UILabel!
-    @IBOutlet weak var minuteLabel: UILabel!
-    @IBOutlet weak var secondLabel: UILabel!
-    @IBOutlet weak var addButtonTombol: UIButton!
-    @IBOutlet weak var stopButtonTombol: UIButton!
-    @IBOutlet weak var judulBukuLabel: UILabel!
-   
-    
-    
-    @IBOutlet weak var listBukuTable: UITableView!
-    
     
     private func disableStopTombol(){
         //stopButtonTombol.setTitleColor(.gray, for: .normal)

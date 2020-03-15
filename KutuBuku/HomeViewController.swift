@@ -11,44 +11,50 @@ import UIKit
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
     @IBOutlet weak var bookTitleTable: UITableView!
+
+    @IBOutlet weak var tambahJudulBukuTombol: UIButton!
     
     let bookTitle: [String] = ["Arjuna Mencari Cinta","Harry Potter"]
+    var buku = Buku()
+    var listBuku: [Buku] = []
+    var currentIndexSelected: Int = 0
+  
+    //what must be done afer load the view
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        //setting for UITableView
+        bookTitleTable.dataSource = self
+        bookTitleTable.delegate = self
+        
+        tambahJudulBukuTombol.layer.cornerRadius = 0.5 * tambahJudulBukuTombol.bounds.size.width
+        tambahJudulBukuTombol.clipsToBounds = true
+        
+      
+      }
+    
+    //listing book table within table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookTitle.count
-    }
+          return bookTitle.count
+      }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let bookTitleCell = tableView.dequeueReusableCell(withIdentifier: "bookTitleCell", for: indexPath)
         bookTitleCell.textLabel?.text = bookTitle[indexPath.row]
+        buku.addTitle(judulBuku: bookTitle[indexPath.row])
+        listBuku.append(buku)
         return(bookTitleCell)
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-           // Segue to the second view controller
-           self.performSegue(withIdentifier: "toDetailReadTime", sender: self)
-       }
-
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        bookTitleTable.dataSource = self
-        bookTitleTable.delegate = self
-        //self.
-
-        // Do any additional setup after loading the view.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+   
+    //Prepare the data so that it can be accessed in the next view controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        let destinationView = segue.destination as? ViewController
+        if let index = self.bookTitleTable.indexPathForSelectedRow {
+            destinationView?.title = listBuku[index.row].title
+        }
+        
+       
     }
-    */
 
 }
