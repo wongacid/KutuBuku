@@ -85,7 +85,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         disableAddTombol()
         enableStopTombol()
-        showInputBookTitle()
+        //showInputBookTitle()
+        self.timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(ViewController.keepTimer), userInfo: nil, repeats: true)
         //stopButtonTombol.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
         
         
@@ -179,7 +180,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let alertController = UIAlertController(title: "Last Page", message: nil, preferredStyle: .alert)
         alertController.addTextField(configurationHandler: nil)
         
-        let lastPageAction = UIAlertAction(title: "Rekap", style: .default) { _ in
+        let lastPageAction = UIAlertAction(title: "Recap", style: .default) { _ in
             if let lastPage = alertController.textFields?.first?.text {
                 let errorLabel = UILabel(frame: CGRect(x: 0, y: 40, width: 270, height: 18))
                 errorLabel.textAlignment = .center
@@ -198,9 +199,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     self.present(alertController, animated: true, completion: nil)
                 }else  {
                     self.halamanTerakhir.append(lastPage)
-                    self.buku.append(self.judulBuku)
+                    //self.buku.append(self.judulBuku)
                     self.elapseTimeRead.append(self.cellElapseTimeRead)
-                    self.judulBukuLabel.text = ""
+                    //self.judulBukuLabel.text = ""
                     self.dateFormater.dateStyle = .medium
                     self.dateFormater.timeStyle = .short
                     let currentDate = Date()
@@ -230,9 +231,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let listBuku = tableView.dequeueReusableCell(withIdentifier: "listBuku", for: indexPath)
         listBuku.textLabel?.textColor = #colorLiteral(red: 1, green: 0.5644097924, blue: 0, alpha: 1)
-        listBuku.textLabel?.text = buku[indexPath.row]
+        listBuku.textLabel?.text = "\(elapseTimeRead[indexPath.row]) of reading on \(hariIni[indexPath.row])"
         listBuku.textLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        listBuku.detailTextLabel?.text = "\(elapseTimeRead[indexPath.row]) of reading on \(hariIni[indexPath.row])"
+        //listBuku.detailTextLabel?.text = "\(elapseTimeRead[indexPath.row]) of reading on \(hariIni[indexPath.row])"
         
 
         let labelPage = UILabel(frame: CGRect(x: 0, y: 0, width: 70, height: 30))

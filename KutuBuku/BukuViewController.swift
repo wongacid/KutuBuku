@@ -17,7 +17,7 @@ extension BukuViewController: UITextFieldDelegate {
         numberOfPageTF.layer.borderColor = UIColor.clear.cgColor
     }
     
-    // while typing do this action
+    // While typing within text field clear border color
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         bookTitleTF.layer.borderColor = UIColor.clear.cgColor
         numberOfPageTF.layer.borderColor = UIColor.clear.cgColor
@@ -26,8 +26,13 @@ extension BukuViewController: UITextFieldDelegate {
 
 }
 
+protocol AddTitleBookDelegate {
+    func addTitleBook(buku: Buku)
+}
+
 class BukuViewController: UIViewController {
 
+    var delegate: AddTitleBookDelegate?
     
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var bookTitleTF: UITextField!
@@ -38,13 +43,11 @@ class BukuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         disabledSaveButton()
+        
+        // Delegate all textfield for several behaviour. Check implementation of UITextFieldDelegate protocol above
         bookTitleTF.delegate = self
         numberOfPageTF.delegate = self
-        
-        
-        
-
-        // Do any additional setup after loading the view.
+    
     }
     
     @IBAction func closeModalView(_ sender: Any) {
@@ -53,29 +56,33 @@ class BukuViewController: UIViewController {
     
     @IBAction func saveButton(_ sender: UIButton) {
         
+        // Checking
         if self.bookTitleTF.text!.isEmpty || self.numberOfPageTF!.text!.isEmpty {
             if self.bookTitleTF.text!.isEmpty {
-                self.bookTitleTF.layer.masksToBounds = true
-                self.bookTitleTF.layer.borderColor = UIColor.red.cgColor
-                self.bookTitleTF.layer.borderWidth = 1.0
-                
+                redAlertTFBorder(inputTF: bookTitleTF)
                 shakeView(view: newBookView)
+                bookTitleTF.placeholder = "Please fill with book title"
             }
             
             if self.numberOfPageTF.text!.isEmpty {
-                self.numberOfPageTF.layer.masksToBounds = true
-                self.numberOfPageTF.layer.borderColor = UIColor.red.cgColor
-                self.numberOfPageTF.layer.borderWidth = 1.0
-                        
+                redAlertTFBorder(inputTF: numberOfPageTF)
                 shakeView(view: newBookView)
+                numberOfPageTF.placeholder = "Please fill with number of page"
             }
             
+        }else if !isPageNumber(checkString: numberOfPageTF.text!) {
+            redAlertTFBorder(inputTF: numberOfPageTF)
+            shakeView(view: newBookView)
+            numberOfPageTF.text = "Please fill with number"
         }else {
+            let buku = Buku(title: self.bookTitleTF.text, numberOfPage: Int(self.numberOfPageTF!.text!))
+            delegate?.addTitleBook(buku: buku)
+            
             dismiss(animated: true, completion: nil)
         }        
     }
     
-    // physically shake the view function
+    // Physically shake the view function
     func shakeView(view: UIView) {
         let viewShakeAnimation = CABasicAnimation(keyPath: "position")
         viewShakeAnimation.duration = 0.07
@@ -86,15 +93,27 @@ class BukuViewController: UIViewController {
         view.layer.add(viewShakeAnimation, forKey: "position")
     }
     
+    // Disable save button
     func disabledSaveButton() {
         saveButton.isEnabled = false
         saveButton.setTitleColor(UIColor.gray, for: .normal)
         
     }
     
+    // Enable save button
     func enableSaveButton() {
         saveButton.isEnabled = true
         saveButton.setTitleColor(UIColor.systemBlue, for: .normal)
+    }
+    
+    func isPageNumber(checkString: String) -> Bool{
+        return Int(checkString) != nil
+    }
+    
+    func redAlertTFBorder ( inputTF: UITextField ) {
+        inputTF.layer.masksToBounds = true
+        inputTF.layer.borderColor = UIColor.red.cgColor
+        inputTF.layer.borderWidth = 1.0
     }
     
     /*

@@ -8,50 +8,55 @@
 
 import UIKit
 
+extension HomeViewController: AddTitleBookDelegate {
+    func addTitleBook(buku: Buku) {
+        self.books.append(buku)
+        self.bookTitleTable.reloadData()
+    }
+}
+
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
     @IBOutlet weak var bookTitleTable: UITableView!
 
     @IBOutlet weak var tambahJudulBukuTombol: UIButton!
-    
-    let bookTitle: [String] = ["Arjuna Mencari Cinta","Harry Potter"]
-    var buku = Buku()
-    var listBuku: [Buku] = []
-    var currentIndexSelected: Int = 0
-  
-    //what must be done afer load the view
+
+    var books = [Buku]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //setting for UITableView
         bookTitleTable.dataSource = self
         bookTitleTable.delegate = self
         
         tambahJudulBukuTombol.layer.cornerRadius = 0.5 * tambahJudulBukuTombol.bounds.size.width
         tambahJudulBukuTombol.clipsToBounds = true
         
-      
       }
     
     //listing book table within table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-          return bookTitle.count
+          return books.count
       }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let bookTitleCell = tableView.dequeueReusableCell(withIdentifier: "bookTitleCell", for: indexPath)
-        bookTitleCell.textLabel?.text = bookTitle[indexPath.row]
-        buku.addTitle(judulBuku: bookTitle[indexPath.row])
-        listBuku.append(buku)
+        bookTitleCell.textLabel?.text = books[indexPath.row].title
+        bookTitleCell.detailTextLabel?.text = "\(books[indexPath.row].progressRead) of \( books[indexPath.row].numberOfPage!)"
         return(bookTitleCell)
     }
    
     //Prepare the data so that it can be accessed in the next view controller
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationView = segue.destination as? ViewController
-        if let index = self.bookTitleTable.indexPathForSelectedRow {
-            destinationView?.title = listBuku[index.row].title
+        
+        if segue.identifier == "toDetailReadTime" {
+            let destinationView = segue.destination as? ViewController
+            if let index = self.bookTitleTable.indexPathForSelectedRow {
+                destinationView?.title = books[index.row].title
+            }
+        } else if segue.identifier == "showPopUp" {
+            let destinationView = segue.destination as? BukuViewController
+            destinationView?.delegate = self
         }
         
        

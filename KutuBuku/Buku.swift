@@ -9,17 +9,10 @@
 import UIKit
 
 struct Buku {
-    var title: String = ""
-    var lastPage: Int = 0
-    var historyRead: [String] = []
-    
-    mutating func addTitle(judulBuku: String) {
-        title = judulBuku
-    }
-    
-    mutating func addHistoryRead(hist: String) {
-        historyRead.append(hist)
-    }
+    var title: String?
+    var progressRead: Int = 0
+    var numberOfPage: Int?
+    var historyRead: [String?] = []
     
 }
 
