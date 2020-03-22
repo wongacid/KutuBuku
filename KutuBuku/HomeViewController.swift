@@ -8,17 +8,21 @@
 
 import UIKit
 
+
 extension HomeViewController: AddTitleBookDelegate {
+    
+    // MARK: - Implementation for addTitleBook Method protocol
+    
     func addTitleBook(buku: Buku) {
         self.books.append(buku)
         self.bookTitleTable.reloadData()
     }
 }
 
+
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
     @IBOutlet weak var bookTitleTable: UITableView!
-
     @IBOutlet weak var tambahJudulBukuTombol: UIButton!
 
     var books = [Buku]()
@@ -33,7 +37,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
       }
     
-    //listing book table within table view
+    // MARK: - Handling Table data
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
           return books.count
       }
@@ -41,19 +46,19 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let bookTitleCell = tableView.dequeueReusableCell(withIdentifier: "bookTitleCell", for: indexPath)
         bookTitleCell.textLabel?.text = books[indexPath.row].title
-        bookTitleCell.detailTextLabel?.text = "\(books[indexPath.row].progressRead) of \( books[indexPath.row].numberOfPage!)"
+        bookTitleCell.detailTextLabel?.text = "\(books[indexPath.row].lastPageRead) of \( books[indexPath.row].numberOfPage!)"
         return(bookTitleCell)
     }
    
-    //Prepare the data so that it can be accessed in the next view controller
+    // MARK: - Handling the segue for the next UIView controller
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "toDetailReadTime" {
             let destinationView = segue.destination as? ViewController
             if let index = self.bookTitleTable.indexPathForSelectedRow {
                 destinationView?.title = books[index.row].title
             }
+            
         } else if segue.identifier == "showPopUp" {
             let destinationView = segue.destination as? BukuViewController
             destinationView?.delegate = self

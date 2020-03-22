@@ -9,10 +9,15 @@
 import UIKit
 
 struct Buku {
+    
+    // TODO: designing data structures to completely
     var title: String?
-    var progressRead: Int = 0
+    var lastPageRead: Int = 0
     var numberOfPage: Int?
-    var historyRead: [String?] = []
+    var durationRead: [Double] = []
+    var histReadTime: [String] = []
+    var histPageRead: [String] = []
+    var histDurationRead: [String] = []
     
 }
 
